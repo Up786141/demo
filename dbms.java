@@ -1,351 +1,351 @@
-import java.awt.EventQueue;
+// import java.awt.EventQueue;
 
-import java.sql.*;
-import java.util.Iterator;
+// import java.sql.*;
+// import java.util.Iterator;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+// import javax.swing.JFrame;
+// import javax.swing.JLabel;
+// import javax.swing.JOptionPane;
 
-import java.awt.BorderLayout;
-import java.awt.Font;
-import javax.swing.JPanel;
-import javax.swing.border.TitledBorder;
-import javax.swing.table.DefaultTableModel;
+// import java.awt.BorderLayout;
+// import java.awt.Font;
+// import javax.swing.JPanel;
+// import javax.swing.border.TitledBorder;
+// import javax.swing.table.DefaultTableModel;
 
-import com.mysql.cj.x.protobuf.MysqlxSession.Reset;
+// import com.mysql.cj.x.protobuf.MysqlxSession.Reset;
 
-import javax.swing.JTextField;
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.border.EtchedBorder;
-import java.awt.Color;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-//import net.proteanit.sql.DbUtils;
+// import javax.swing.JTextField;
+// import javax.swing.AbstractButton;
+// import javax.swing.JButton;
+// import java.awt.event.ActionListener;
+// import java.awt.event.ActionEvent;
+// import javax.swing.JTable;
+// import javax.swing.JScrollPane;
+// import javax.swing.border.EtchedBorder;
+// import java.awt.Color;
+// import java.awt.event.KeyAdapter;
+// import java.awt.event.KeyEvent;
+// //import net.proteanit.sql.DbUtils;
 
 
-public class JavaCrud {
+// public class JavaCrud {
 
-	private JFrame frame;
-	private JTextField txtcomplaintid;
-	private JTextField txtusn;
-	private JTextField txtname;
-	private JTextField txtbranch;
-	private JTextField txtsubjectid;
-	private JTextField txtcomplaint;
-	private JTable table;
-	private JTextField txtsearch;
+// 	private JFrame frame;
+// 	private JTextField txtcomplaintid;
+// 	private JTextField txtusn;
+// 	private JTextField txtname;
+// 	private JTextField txtbranch;
+// 	private JTextField txtsubjectid;
+// 	private JTextField txtcomplaint;
+// 	private JTable table;
+// 	private JTextField txtsearch;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					JavaCrud window = new JavaCrud();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+// 	/**
+// 	 * Launch the application.
+// 	 */
+// 	public static void main(String[] args) {
+// 		EventQueue.invokeLater(new Runnable() {
+// 			public void run() {
+// 				try {
+// 					JavaCrud window = new JavaCrud();
+// 					window.frame.setVisible(true);
+// 				} catch (Exception e) {
+// 					e.printStackTrace();
+// 				}
+// 			}
+// 		});
+// 	}
 
-	/**
-	 * Create the application.
-	 */
-	public JavaCrud() {
-		initialize();
-		Connect();
-	}
-	Connection con;
-	PreparedStatement pst;
-	ResultSet rs;
-	private JTable table_1;
+// 	/**
+// 	 * Create the application.
+// 	 */
+// 	public JavaCrud() {
+// 		initialize();
+// 		Connect();
+// 	}
+// 	Connection con;
+// 	PreparedStatement pst;
+// 	ResultSet rs;
+// 	private JTable table_1;
 	
-	public void Connect()
-	{
-		try {
-//			Class.forName("com.mysql.jdbc.Driver");
-			Class.forName("com.mysql.cj.jdbc.Driver");			
-			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javacurd","root","W7301@jqir#");
-//			3 parameters
-		}
-		catch(Exception e) {
-			System.out.println(e);
-		}
-	}
+// 	public void Connect()
+// 	{
+// 		try {
+// //			Class.forName("com.mysql.jdbc.Driver");
+// 			Class.forName("com.mysql.cj.jdbc.Driver");			
+// 			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/javacurd","root","W7301@jqir#");
+// //			3 parameters
+// 		}
+// 		catch(Exception e) {
+// 			System.out.println(e);
+// 		}
+// 	}
 	
-	public void table_load() {
-		try {
-//			pst = con.prepareStatement("select * from complaints");
-//			rs = pst.executeQuery();
-//			//////////////////////////////////////////////////
-			Statement st = con.createStatement();
-			String query = "select * from complaints";
-			rs = st.executeQuery(query);
-			ResultSetMetaData rsmd = rs.getMetaData();
-			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
-			int cols = rsmd.getColumnCount();
-			String [] colName = new String [cols];
-			for(int i=0;i<cols;i++) {
-				colName[i] = rsmd.getColumnName(i+1);
-			}
-			model.setColumnIdentifiers(colName);
-			String usn,name,branch,subjectid,complaintid,complaint;
-			while(rs.next()) {
-				usn = rs.getString(1);
-				name = rs.getString(2);
-				branch = rs.getString(3);
-				subjectid = rs.getString(4);
-				complaintid = rs.getString(5);
-				complaint = rs.getString(6);
-				String [] row = {usn,name,branch,subjectid,complaintid,complaint};
-				model.addRow(row);
-			}
-//			pst.close();
-//			con.close();
-		}
-		catch(SQLException e) {
-			System.out.println(e);
-		}
-	}
+// 	public void table_load() {
+// 		try {
+// //			pst = con.prepareStatement("select * from complaints");
+// //			rs = pst.executeQuery();
+// //			//////////////////////////////////////////////////
+// 			Statement st = con.createStatement();
+// 			String query = "select * from complaints";
+// 			rs = st.executeQuery(query);
+// 			ResultSetMetaData rsmd = rs.getMetaData();
+// 			DefaultTableModel model = (DefaultTableModel) table_1.getModel();
+// 			int cols = rsmd.getColumnCount();
+// 			String [] colName = new String [cols];
+// 			for(int i=0;i<cols;i++) {
+// 				colName[i] = rsmd.getColumnName(i+1);
+// 			}
+// 			model.setColumnIdentifiers(colName);
+// 			String usn,name,branch,subjectid,complaintid,complaint;
+// 			while(rs.next()) {
+// 				usn = rs.getString(1);
+// 				name = rs.getString(2);
+// 				branch = rs.getString(3);
+// 				subjectid = rs.getString(4);
+// 				complaintid = rs.getString(5);
+// 				complaint = rs.getString(6);
+// 				String [] row = {usn,name,branch,subjectid,complaintid,complaint};
+// 				model.addRow(row);
+// 			}
+// //			pst.close();
+// //			con.close();
+// 		}
+// 		catch(SQLException e) {
+// 			System.out.println(e);
+// 		}
+// 	}
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1106, 422);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+// 	/**
+// 	 * Initialize the contents of the frame.
+// 	 */
+// 	private void initialize() {
+// 		frame = new JFrame();
+// 		frame.setBounds(100, 100, 1106, 422);
+// 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+// 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Complaint Management");
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel.setBounds(356, 11, 370, 60);
-		frame.getContentPane().add(lblNewLabel);
+// 		JLabel lblNewLabel = new JLabel("Complaint Management");
+// 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
+// 		lblNewLabel.setBounds(356, 11, 370, 60);
+// 		frame.getContentPane().add(lblNewLabel);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(new TitledBorder(null, "Complaint Form", TitledBorder.LEADING, TitledBorder.TOP, null, null));
-		panel.setBounds(10, 70, 309, 177);
-		frame.getContentPane().add(panel);
-		panel.setLayout(null);
+// 		JPanel panel = new JPanel();
+// 		panel.setBorder(new TitledBorder(null, "Complaint Form", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+// 		panel.setBounds(10, 70, 309, 177);
+// 		frame.getContentPane().add(panel);
+// 		panel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("USN");
-		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1.setBounds(24, 26, 46, 14);
-		panel.add(lblNewLabel_1);
+// 		JLabel lblNewLabel_1 = new JLabel("USN");
+// 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+// 		lblNewLabel_1.setBounds(24, 26, 46, 14);
+// 		panel.add(lblNewLabel_1);
 		
-		JLabel lblNewLabel_1_1 = new JLabel("NAME");
-		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1_1.setBounds(24, 51, 46, 14);
-		panel.add(lblNewLabel_1_1);
+// 		JLabel lblNewLabel_1_1 = new JLabel("NAME");
+// 		lblNewLabel_1_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+// 		lblNewLabel_1_1.setBounds(24, 51, 46, 14);
+// 		panel.add(lblNewLabel_1_1);
 		
-		JLabel lblNewLabel_1_2 = new JLabel("BRANCH");
-		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1_2.setBounds(24, 76, 71, 14);
-		panel.add(lblNewLabel_1_2);
+// 		JLabel lblNewLabel_1_2 = new JLabel("BRANCH");
+// 		lblNewLabel_1_2.setFont(new Font("Tahoma", Font.BOLD, 15));
+// 		lblNewLabel_1_2.setBounds(24, 76, 71, 14);
+// 		panel.add(lblNewLabel_1_2);
 		
-		JLabel lblNewLabel_1_3 = new JLabel("SUBJECT ID");
-		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1_3.setBounds(24, 99, 89, 14);
-		panel.add(lblNewLabel_1_3);
+// 		JLabel lblNewLabel_1_3 = new JLabel("SUBJECT ID");
+// 		lblNewLabel_1_3.setFont(new Font("Tahoma", Font.BOLD, 15));
+// 		lblNewLabel_1_3.setBounds(24, 99, 89, 14);
+// 		panel.add(lblNewLabel_1_3);
 		
-		JLabel lblNewLabel_1_4 = new JLabel("COMPLAINT ID");
-		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1_4.setBounds(24, 123, 114, 14);
-		panel.add(lblNewLabel_1_4);
+// 		JLabel lblNewLabel_1_4 = new JLabel("COMPLAINT ID");
+// 		lblNewLabel_1_4.setFont(new Font("Tahoma", Font.BOLD, 15));
+// 		lblNewLabel_1_4.setBounds(24, 123, 114, 14);
+// 		panel.add(lblNewLabel_1_4);
 		
-		JLabel lblNewLabel_1_5 = new JLabel("COMPLAINT");
-		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1_5.setBounds(24, 148, 114, 14);
-		panel.add(lblNewLabel_1_5);
+// 		JLabel lblNewLabel_1_5 = new JLabel("COMPLAINT");
+// 		lblNewLabel_1_5.setFont(new Font("Tahoma", Font.BOLD, 15));
+// 		lblNewLabel_1_5.setBounds(24, 148, 114, 14);
+// 		panel.add(lblNewLabel_1_5);
 		
-		txtcomplaintid = new JTextField();
-		txtcomplaintid.setBounds(142, 117, 138, 20);
-		panel.add(txtcomplaintid);
-		txtcomplaintid.setColumns(10);
+// 		txtcomplaintid = new JTextField();
+// 		txtcomplaintid.setBounds(142, 117, 138, 20);
+// 		panel.add(txtcomplaintid);
+// 		txtcomplaintid.setColumns(10);
 		
-		txtusn = new JTextField();
-		txtusn.setColumns(10);
-		txtusn.setBounds(142, 20, 138, 20);
-		panel.add(txtusn);
+// 		txtusn = new JTextField();
+// 		txtusn.setColumns(10);
+// 		txtusn.setBounds(142, 20, 138, 20);
+// 		panel.add(txtusn);
 		
-		txtname = new JTextField();
-		txtname.setColumns(10);
-		txtname.setBounds(142, 45, 138, 20);
-		panel.add(txtname);
+// 		txtname = new JTextField();
+// 		txtname.setColumns(10);
+// 		txtname.setBounds(142, 45, 138, 20);
+// 		panel.add(txtname);
 		
-		txtbranch = new JTextField();
-		txtbranch.setColumns(10);
-		txtbranch.setBounds(142, 70, 138, 20);
-		panel.add(txtbranch);
+// 		txtbranch = new JTextField();
+// 		txtbranch.setColumns(10);
+// 		txtbranch.setBounds(142, 70, 138, 20);
+// 		panel.add(txtbranch);
 		
-		txtsubjectid = new JTextField();
-		txtsubjectid.setColumns(10);
-		txtsubjectid.setBounds(142, 93, 138, 20);
-		panel.add(txtsubjectid);
+// 		txtsubjectid = new JTextField();
+// 		txtsubjectid.setColumns(10);
+// 		txtsubjectid.setBounds(142, 93, 138, 20);
+// 		panel.add(txtsubjectid);
 		
-		txtcomplaint = new JTextField();
-		txtcomplaint.setColumns(10);
-		txtcomplaint.setBounds(142, 142, 138, 20);
-		panel.add(txtcomplaint);
+// 		txtcomplaint = new JTextField();
+// 		txtcomplaint.setColumns(10);
+// 		txtcomplaint.setBounds(142, 142, 138, 20);
+// 		panel.add(txtcomplaint);
 		
-		JButton btnNewButton = new JButton("SAVE");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-//				storing the values
-				String usn,name,branch,subjectid,complaintid,complaint;
-				usn = txtusn.getText();
-				name = txtname.getText();
-				branch = txtbranch.getText();
-				subjectid = txtsubjectid.getText();
-				complaintid = txtcomplaintid.getText();
-				complaint = txtcomplaint.getText();
+// 		JButton btnNewButton = new JButton("SAVE");
+// 		btnNewButton.addActionListener(new ActionListener() {
+// 			public void actionPerformed(ActionEvent e) {
+// //				storing the values
+// 				String usn,name,branch,subjectid,complaintid,complaint;
+// 				usn = txtusn.getText();
+// 				name = txtname.getText();
+// 				branch = txtbranch.getText();
+// 				subjectid = txtsubjectid.getText();
+// 				complaintid = txtcomplaintid.getText();
+// 				complaint = txtcomplaint.getText();
 				
-				try {
-					pst = con.prepareStatement("insert into complaints(USN,NAME,BRANCH,SUBJECT_ID,COMPLAINT_ID,COMPLAINT)values(?,?,?,?,?,?)");
-					pst.setString(1, usn);
-					pst.setString(2, name);
-					pst.setString(3, branch);
-					pst.setString(4, subjectid);
-					pst.setString(5, complaintid);
-					pst.setString(6, complaint);
-					pst.executeUpdate();
-					JOptionPane.showMessageDialog(null, "Record Addeddd......");
-//					table_load();
-					txtusn.setText("");
-					txtname.setText("");
-					txtbranch.setText("");
-					txtsubjectid.setText("");
-					txtcomplaintid.setText("");
-					txtcomplaint.setText("");
-					txtusn.requestFocus();
+// 				try {
+// 					pst = con.prepareStatement("insert into complaints(USN,NAME,BRANCH,SUBJECT_ID,COMPLAINT_ID,COMPLAINT)values(?,?,?,?,?,?)");
+// 					pst.setString(1, usn);
+// 					pst.setString(2, name);
+// 					pst.setString(3, branch);
+// 					pst.setString(4, subjectid);
+// 					pst.setString(5, complaintid);
+// 					pst.setString(6, complaint);
+// 					pst.executeUpdate();
+// 					JOptionPane.showMessageDialog(null, "Record Addeddd......");
+// //					table_load();
+// 					txtusn.setText("");
+// 					txtname.setText("");
+// 					txtbranch.setText("");
+// 					txtsubjectid.setText("");
+// 					txtcomplaintid.setText("");
+// 					txtcomplaint.setText("");
+// 					txtusn.requestFocus();
 
 					
-				}
-				catch(SQLException e1) {
-					e1.printStackTrace();
-				}
+// 				}
+// 				catch(SQLException e1) {
+// 					e1.printStackTrace();
+// 				}
 
-			}
-		});
-		btnNewButton.setBounds(10, 258, 89, 46);
-		frame.getContentPane().add(btnNewButton);
+// 			}
+// 		});
+// 		btnNewButton.setBounds(10, 258, 89, 46);
+// 		frame.getContentPane().add(btnNewButton);
 		
-		JButton btnExit = new JButton("EXIT");
-		btnExit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnExit.setBounds(109, 258, 89, 46);
-		frame.getContentPane().add(btnExit);
+// 		JButton btnExit = new JButton("EXIT");
+// 		btnExit.addActionListener(new ActionListener() {
+// 			public void actionPerformed(ActionEvent e) {
+// 				System.exit(0);
+// 			}
+// 		});
+// 		btnExit.setBounds(109, 258, 89, 46);
+// 		frame.getContentPane().add(btnExit);
 		
-		JButton btnClear = new JButton("CLEAR");
-		btnClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				txtusn.setText("");
-				txtname.setText("");
-				txtbranch.setText("");
-				txtsubjectid.setText("");
-				txtcomplaintid.setText("");
-				txtcomplaint.setText("");
-				txtusn.requestFocus();
-			}
-		});
-		btnClear.setBounds(208, 258, 89, 46);
-		frame.getContentPane().add(btnClear);
+// 		JButton btnClear = new JButton("CLEAR");
+// 		btnClear.addActionListener(new ActionListener() {
+// 			public void actionPerformed(ActionEvent e) {
+// 				txtusn.setText("");
+// 				txtname.setText("");
+// 				txtbranch.setText("");
+// 				txtsubjectid.setText("");
+// 				txtcomplaintid.setText("");
+// 				txtcomplaint.setText("");
+// 				txtusn.requestFocus();
+// 			}
+// 		});
+// 		btnClear.setBounds(208, 258, 89, 46);
+// 		frame.getContentPane().add(btnClear);
 		
-		table = new JTable();
-		table.setBounds(389, 245, -43, -133);
-		frame.getContentPane().add(table);
+// 		table = new JTable();
+// 		table.setBounds(389, 245, -43, -133);
+// 		frame.getContentPane().add(table);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Search", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
-		panel_1.setBounds(10, 311, 287, 45);
-		frame.getContentPane().add(panel_1);
-		panel_1.setLayout(null);
+// 		JPanel panel_1 = new JPanel();
+// 		panel_1.setBorder(new TitledBorder(new EtchedBorder(EtchedBorder.LOWERED, new Color(255, 255, 255), new Color(160, 160, 160)), "Search", TitledBorder.LEADING, TitledBorder.TOP, null, new Color(0, 0, 0)));
+// 		panel_1.setBounds(10, 311, 287, 45);
+// 		frame.getContentPane().add(panel_1);
+// 		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_1_2_1 = new JLabel("USN : ");
-		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
-		lblNewLabel_1_2_1.setBounds(10, 16, 61, 14);
-		panel_1.add(lblNewLabel_1_2_1);
+// 		JLabel lblNewLabel_1_2_1 = new JLabel("USN : ");
+// 		lblNewLabel_1_2_1.setFont(new Font("Tahoma", Font.BOLD, 15));
+// 		lblNewLabel_1_2_1.setBounds(10, 16, 61, 14);
+// 		panel_1.add(lblNewLabel_1_2_1);
 		
-		txtsearch = new JTextField();
-		txtsearch.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-//				try {
-//					
-//					String usnID = txtusn.getText();
-//					pst = con.prepareStatement("USN,NAME,BRANCH,SUBJECT_ID,COMPLAINT_ID,COMPLAINT WGERE USN = ?");
-//					pst.setString(1, usnID);
-//					rs = pst.executeQuery();
-//					if(rs.next() == true)
-//					{
-//						String usn,name,branch,subjectid,complaintid,complaint;
-//							usn = rs.getString(1);
-//							name = rs.getString(2);
-//							branch = rs.getString(3);
-//							subjectid = rs.getString(4);
-//							complaintid = rs.getString(5);
-//							complaint = rs.getString(6);
-//							
-//							txtusn.setText(usn);
-//							txtname.setText(name);
-//							txtbranch.setText(branch);
-//							txtsubjectid.setText(subjectid);
-//							txtcomplaintid.setText(complaintid);
-//							txtcomplaint.setText(complaint);
-//					}
-//					else {
-//						txtusn.setText("");
-//						txtname.setText("");
-//						txtbranch.setText("");
-//						txtsubjectid.setText("");
-//						txtcomplaintid.setText("");
-//						txtcomplaint.setText("");
-//					}
-//				}catch (Exception e1) {
-//					// TODO: handle exception
-//					System.out.println(e1);
-//				}
-			}
-		});
-		txtsearch.setColumns(10);
-		txtsearch.setBounds(75, 11, 202, 20);
-		panel_1.add(txtsearch);
+// 		txtsearch = new JTextField();
+// 		txtsearch.addKeyListener(new KeyAdapter() {
+// 			@Override
+// 			public void keyReleased(KeyEvent e) {
+// //				try {
+// //					
+// //					String usnID = txtusn.getText();
+// //					pst = con.prepareStatement("USN,NAME,BRANCH,SUBJECT_ID,COMPLAINT_ID,COMPLAINT WGERE USN = ?");
+// //					pst.setString(1, usnID);
+// //					rs = pst.executeQuery();
+// //					if(rs.next() == true)
+// //					{
+// //						String usn,name,branch,subjectid,complaintid,complaint;
+// //							usn = rs.getString(1);
+// //							name = rs.getString(2);
+// //							branch = rs.getString(3);
+// //							subjectid = rs.getString(4);
+// //							complaintid = rs.getString(5);
+// //							complaint = rs.getString(6);
+// //							
+// //							txtusn.setText(usn);
+// //							txtname.setText(name);
+// //							txtbranch.setText(branch);
+// //							txtsubjectid.setText(subjectid);
+// //							txtcomplaintid.setText(complaintid);
+// //							txtcomplaint.setText(complaint);
+// //					}
+// //					else {
+// //						txtusn.setText("");
+// //						txtname.setText("");
+// //						txtbranch.setText("");
+// //						txtsubjectid.setText("");
+// //						txtcomplaintid.setText("");
+// //						txtcomplaint.setText("");
+// //					}
+// //				}catch (Exception e1) {
+// //					// TODO: handle exception
+// //					System.out.println(e1);
+// //				}
+// 			}
+// 		});
+// 		txtsearch.setColumns(10);
+// 		txtsearch.setBounds(75, 11, 202, 20);
+// 		panel_1.add(txtsearch);
 		
-		JButton btnUpdate = new JButton("Display table");
-		btnUpdate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				table_load();
-			}
-		});
-		btnUpdate.setBounds(415, 309, 117, 46);
-		frame.getContentPane().add(btnUpdate);
+// 		JButton btnUpdate = new JButton("Display table");
+// 		btnUpdate.addActionListener(new ActionListener() {
+// 			public void actionPerformed(ActionEvent e) {
+// 				table_load();
+// 			}
+// 		});
+// 		btnUpdate.setBounds(415, 309, 117, 46);
+// 		frame.getContentPane().add(btnUpdate);
 		
-		JButton btnClear_2 = new JButton("CLEAR");
-		btnClear_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				table_1.setModel(new DefaultTableModel());
-			}
-		});
-		btnClear_2.setBounds(569, 310, 89, 46);
-		frame.getContentPane().add(btnClear_2);
+// 		JButton btnClear_2 = new JButton("CLEAR");
+// 		btnClear_2.addActionListener(new ActionListener() {
+// 			public void actionPerformed(ActionEvent e) {
+// 				table_1.setModel(new DefaultTableModel());
+// 			}
+// 		});
+// 		btnClear_2.setBounds(569, 310, 89, 46);
+// 		frame.getContentPane().add(btnClear_2);
 		
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(329, 70, 751, 219);
-		frame.getContentPane().add(scrollPane);
+// 		JScrollPane scrollPane = new JScrollPane();
+// 		scrollPane.setBounds(329, 70, 751, 219);
+// 		frame.getContentPane().add(scrollPane);
 		
-		table_1 = new JTable();
-		scrollPane.setViewportView(table_1);
-	}
-}
+// 		table_1 = new JTable();
+// 		scrollPane.setViewportView(table_1);
+// 	}
+// }
