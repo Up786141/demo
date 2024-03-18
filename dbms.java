@@ -1,31 +1,21 @@
-import java.awt.EventQueue;
-
 import java.sql.*;
 import java.util.Iterator;
 
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import java.awt.BorderLayout;
-import java.awt.Font;
-import javax.swing.JPanel;
 import javax.swing.border.TitledBorder;
 import javax.swing.table.DefaultTableModel;
 
 import com.mysql.cj.x.protobuf.MysqlxSession.Reset;
 
-import javax.swing.JTextField;
-import javax.swing.AbstractButton;
-import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
+
 import javax.swing.border.EtchedBorder;
-import java.awt.Color;
+
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+
+import java.awt.*;
+import javax.swing.*;
 
 public class JavaCrud {
 
@@ -80,6 +70,7 @@ public class JavaCrud {
 		}
 	}
 	
+	
 	public void table_load() {
 		try {
 //			pst = con.prepareStatement("select * from complaints");
@@ -121,9 +112,9 @@ public class JavaCrud {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Complaint Management");
+		JLabel lblNewLabel = new JLabel("SJCIT DHI COMPLAINT MANAGEMENT SYSTEM");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
-		lblNewLabel.setBounds(523, 11, 370, 60);
+		lblNewLabel.setBounds(329, 11, 773, 60);
 		frame.getContentPane().add(lblNewLabel);
 		
 		JPanel panel = new JPanel();
@@ -277,10 +268,10 @@ public class JavaCrud {
 				public void keyReleased(KeyEvent e) {
 			        try {
 			            String usnToSearch = txtsearch.getText();
-			            String query = "SELECT * FROM complaints WHERE usn=?";
+			            String query = "SELECT * FROM complaints WHERE usn=?";//
 			            
 			            pst = con.prepareStatement(query);
-			            pst.setString(1, usnToSearch);
+			            pst.setString(1, usnToSearch); //
 
 			            rs = pst.executeQuery();
 			            
@@ -331,5 +322,7 @@ public class JavaCrud {
 		
 		table_1 = new JTable();
 		scrollPane.setViewportView(table_1);
+		
+
 	}
 }
