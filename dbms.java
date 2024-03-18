@@ -1,4 +1,5 @@
 import java.sql.*;
+
 import java.util.Iterator;
 
 import javax.swing.border.TitledBorder;
@@ -16,6 +17,7 @@ import java.awt.event.KeyEvent;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.JFrame;
 
 public class JavaCrud {
 
@@ -107,10 +109,24 @@ public class JavaCrud {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 1360, 422);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		
+//		image changes
+		frame = new JFrame(); // Initialize frame here
+	    frame.setBounds(100, 100, 1360, 422);
+	    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    frame.getContentPane().setLayout(new BorderLayout());
+	    
+	    // Set content pane after initializing frame
+	    Image backgroundImage = new ImageIcon("C:/Users/Windows/OneDrive/Desktop/car.jpg").getImage();
+	    JPanel backgroundPanel = new JPanel() {
+	        @Override
+	        protected void paintComponent(Graphics g) {
+	            super.paintComponent(g);
+	            g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
+	        }
+	    };
+	    backgroundPanel.setLayout(null);
+	    frame.setContentPane(backgroundPanel);
 		
 		JLabel lblNewLabel = new JLabel("SJCIT DHI COMPLAINT MANAGEMENT SYSTEM");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
