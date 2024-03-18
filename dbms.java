@@ -117,7 +117,8 @@ public class JavaCrud {
 	    frame.getContentPane().setLayout(new BorderLayout());
 	    
 	    // Set content pane after initializing frame
-	    Image backgroundImage = new ImageIcon("C:/Users/Windows/OneDrive/Desktop/car.jpg").getImage();
+	    Image backgroundImage = new ImageIcon("C:/Users/Windows/OneDrive/Desktop/sjcit_logo3.jpg").getImage();
+//	    Image backgroundImage = new ImageIcon("C:/Users/Windows/Downloads/SJCIT-logoooo.jpg").getImage();
 	    JPanel backgroundPanel = new JPanel() {
 	        @Override
 	        protected void paintComponent(Graphics g) {
@@ -129,6 +130,7 @@ public class JavaCrud {
 	    frame.setContentPane(backgroundPanel);
 		
 		JLabel lblNewLabel = new JLabel("SJCIT DHI COMPLAINT MANAGEMENT SYSTEM");
+		lblNewLabel.setForeground(new Color(0, 64, 64));
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 30));
 		lblNewLabel.setBounds(329, 11, 773, 60);
 		frame.getContentPane().add(lblNewLabel);
@@ -200,6 +202,7 @@ public class JavaCrud {
 		panel.add(txtcomplaint);
 		
 		JButton btnNewButton = new JButton("SAVE");
+		btnNewButton.setForeground(new Color(0, 0, 128));
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 //				storing the values
@@ -240,6 +243,7 @@ public class JavaCrud {
 		frame.getContentPane().add(btnNewButton);
 		
 		JButton btnExit = new JButton("EXIT");
+		btnExit.setForeground(new Color(64, 0, 128));
 		btnExit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				System.exit(0);
@@ -249,6 +253,7 @@ public class JavaCrud {
 		frame.getContentPane().add(btnExit);
 		
 		JButton btnClear = new JButton("CLEAR");
+		btnClear.setForeground(new Color(0, 0, 128));
 		btnClear.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				txtusn.setText("");
